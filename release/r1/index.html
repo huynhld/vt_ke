@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test</title>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="js/PageInit.js"></script>
+    <script src="js/ShowBanner.js"></script>
+    <script src="js/ShowPopup.js"></script>
+</head>
+
+<body>
+    <ol>
+        <li>getReady</li>
+        <li>ShowBanner</li>
+        <li>ShowPopup</li>
+    </ol>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var myPage = new PageInit();
+    var promise = myPage.getReady(1000);
+    promise
+        .then(function(success) {
+            console.log(success);
+            let firstJob = new ShowBanner();
+            let secondJob = new ShowPopup();
+
+            firstJob.do(success);
+            secondJob.do(success);
+
+        }, function(error) {
+            console.log(error);
+            let firstJob = new ShowBanner();
+            let secondJob = new ShowPopup();
+
+            firstJob.do(error);
+            secondJob.do(error);
+
+        })
+        .catch(function(message) {
+            console.log('Unexpected error through ' + message);
+        });
+});
+</script>
+
+</html>

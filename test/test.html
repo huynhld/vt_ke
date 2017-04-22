@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="js/PageInitSingleton.js"></script>
+</head>
+
+<body>
+</body>
+<script>
+$(document).ready(function() {
+    var myPage = new PageInitSingleton();
+    var promise = myPage.getReady();
+    promise
+        .then(function(success) {
+            console.log(success);
+            let firstJob = new ShowBanner();
+            let secondJob = new ShowPopup();
+
+            firstJob.do(success);
+            secondJob.do(success);
+
+        }, function(error) {
+            let firstJob = new ShowBanner();
+            let secondJob = new ShowPopup();
+
+            firstJob.do(success);
+            secondJob.do(success);
+
+            console.log(error);
+        })
+        .catch(function(message) {
+            console.log('Unexpected error through ' + message);
+        });
+});
+</script>
+
+</html>
